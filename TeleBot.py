@@ -1,16 +1,25 @@
 from flask import Flask
+from flask import request
+from flask import jsonify
 import simplejson as json
 import requests
+import telebot
 
 app = Flask(__name__)
+bot = telebot.TeleBot('531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0')
 
 URL = 'https://api.telegram.org/bot531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0/'
 
+@bot.message_handler(commands=['start'])
+def start(message):
+	print ("Hi")
+
+#ФУНКЦИЯ КОТОРАЯ ПРИНЕМАЕТ ДАННЫЕ
 def write_json(date, filename='ansver.json'):
 	with open(filename, 'w') as f:
 		json.dump(date, f, indent=2, ensure_ascii=False)
 
-
+#ПОЛУЧЕНИЕ ДАННЫХ ОТ ТЕЛЕГРАМА
 def get_updates():
 	#https://api.telegram.org/bot531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0/getUpdates
 	url = URL + 'getUpdates'
@@ -18,15 +27,30 @@ def get_updates():
 	#write_json(r.json())
 	return r.json()
 
+#ФУНКИЯ ДЛЯ ОТВЕТА бОТА
 def send_message(chat_id, text='bla-bla-bla'):
 	url = URL + 'sendMessage'
 	answer = {'chat_id': chat_id, 'text': text}
 	r = requests.post(url, json=answer)
 	return r.json()
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
-	return '<h1>Hello bot</h1>'
+	if request.method == 'POST':
+		r = request.get_json()
+		chat_id = r['message']['chat']['id']
+		message = r['message']['text']
+
+	if 'Здравствуйте' in message:
+		send_message(chat_id, text='Здравствуйте')
+
+		#whrite_json(r)
+		return jsonify(r)
+
+	return '<h1>Bot welcomes you</h1>'
+
+	#https://api.telegram.org/bot531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0/setWebhook?url=https://daa08a0a.ngrok.io/
+
 
 def main():
 	#r = requests.get(URL + 'getMe')
