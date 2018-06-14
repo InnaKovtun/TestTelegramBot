@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from telebot import types
 import simplejson as json
 import requests
 import telebot
@@ -14,6 +15,13 @@ URL = 'https://api.telegram.org/bot560420481:AAGSBQpupKG7fzhUkr905FuW6u-ORFvVK80
 def send_welcome(message):
     msg = bot.send_message(message.chat.id, 'Привет!\n Я - @cocopalmsalon_bot, личный помощник салона красоты "Коко Пальм"\n Рад тебя приветствовать! \n Для авторизации нажми, пожалуйста, кнопку "Отправить мой номер"')
     bot.get_updates
+
+@bot.message_handler(content_types=["text"])
+def any_msg(message):
+keyboard = types.InlineKeyboardMarkup()
+	like_button= types.InlineKeyboardButton(text="Отправить мой номер", callback_data='like')
+	keyboard.add(like_button)
+	bot.send_photo(message.from_user.id,img, reply_markup=keyboard)
 
 #ФУНКЦИЯ КОТОРАЯ ПРИНЕМАЕТ ДАННЫЕ
 def write_json(date, filename='ansver.json'):
