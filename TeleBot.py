@@ -6,9 +6,9 @@ import requests
 import telebot
 
 app = Flask(__name__)
-bot = telebot.TeleBot('531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0')
+bot = telebot.TeleBot('560420481:AAGSBQpupKG7fzhUkr905FuW6u-ORFvVK80')
 
-URL = 'https://api.telegram.org/bot531159192:AAGRUYM3DLLX6V7huZ9yxLBa7n5SwtR9DE0/'
+URL = 'https://api.telegram.org/bot560420481:AAGSBQpupKG7fzhUkr905FuW6u-ORFvVK80/'
 
 @bot.message_handler(commands=['start'])
 def start(message):
