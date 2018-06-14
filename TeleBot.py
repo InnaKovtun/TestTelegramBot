@@ -10,9 +10,10 @@ bot = telebot.TeleBot('560420481:AAGSBQpupKG7fzhUkr905FuW6u-ORFvVK80')
 
 URL = 'https://api.telegram.org/bot560420481:AAGSBQpupKG7fzhUkr905FuW6u-ORFvVK80/'
 
-@bot.message_handler(commands=['start'])
-def start(message):
-	print ("Hi")
+@bot.message_handler(commands=['help', 'start'])
+def send_welcome(message):
+    msg = bot.send_message(message.chat.id, 'Привет!\n Я - @cocopalmsalon_bot, личный помощник салона красоты "Коко Пальм"\n Рад тебя приветствовать! \n Для авторизации нажми, пожалуйста, кнопку "Отправить мой номер"')
+    bot.get_updates
 
 #ФУНКЦИЯ КОТОРАЯ ПРИНЕМАЕТ ДАННЫЕ
 def write_json(date, filename='ansver.json'):
@@ -61,5 +62,4 @@ def main():
 	pass
 
 if __name__ == '__main__':
-	#main()
-	app.run()
+    bot.polling(none_stop=True)
