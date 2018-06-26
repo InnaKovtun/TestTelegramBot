@@ -86,7 +86,24 @@ def keyboard_menu(message):
         key.add(button_13)
         key.add(button_14)
         bot.send_message(message.chat.id, "Выберите категорию процедуры", reply_markup=key)
-
+        
+    print("portfolio")
+    if message.text == "Портфолио":
+        key = types.InlineKeyboardMarkup()
+        button_1 = types.InlineKeyboardButton(text = "Окрашивание", callback_data="Окрашивание")
+        button_2 = types.InlineKeyboardButton(text = "Ногти", callback_data="Ногти")
+        button_3 = types.InlineKeyboardButton(text = "Макияж", callback_data="Макияж")
+        button_4 = types.InlineKeyboardButton(text = "Тату", callback_data="Тату")
+        button_5 = types.InlineKeyboardButton(text = "Татуаж", callback_data="Татуаж")
+        button_6 = types.InlineKeyboardButton(text = "Отбеливание зубов", callback_data="Отбеливание зубов")
+        key.add(button_1)
+        key.add(button_2)
+        key.add(button_3)
+        key.add(button_4)
+        key.add(button_5)
+        key.add(button_6)
+        bot.send_message(message.chat.id, "Выберите портфолио", reply_markup=key)
+        
     print("faq")
     if message.text == "F.A.Q.":
         bot.send_message(message.chat.id, "Введите ваш вопрос, я постараюсь на него ответить.")
